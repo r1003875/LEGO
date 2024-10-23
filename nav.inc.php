@@ -9,6 +9,7 @@
     <div class="secondary_links">
         <input type="text" placeholder="Search..." class="search_input">
         <a href=""><img src="images/bag-shopping-solid.svg" alt="cart" class="shopping_bag"></a>
+        <a href="">ACCOUNT</a>
         <a href="logout.php">LOG OUT</a>
     </div>
 </nav>

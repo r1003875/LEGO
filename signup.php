@@ -11,6 +11,15 @@
                 $error2 = true;
             }
             else{
+                $options = [
+                    'cost' => 15,
+                ];
+                $hash = password_hash($password, PASSWORD_DEFAULT, $options);
+                $conn = new PDO('mysql:host=localhost;dbname=legoshop','root', '');
+                $statement = $conn->prepare('INSERT INTO user (email, password) VALUES (:email, :password)');
+                $statement->bindValue(':email', $email);
+                $statement->bindValue(':password', $hash);
+                $statement->execute();
                 header('Location: login.php');
             }
         }

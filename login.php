@@ -1,7 +1,19 @@
 <?php
     function verifyLogin($e, $p){
-        if($e === "simonvandeneynde@lego.com" && $p === "12345isnotsecure"){
-            return true;
+        $conn = new PDO('mysql:host=localhost;dbname=legoshop','root', '');
+        $statement = $conn->prepare('SELECT * FROM user WHERE email = :email');
+        $statement->bindValue(':email', $e);
+        $statement->execute();
+
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        if($user){
+            $hash = $user['password'];
+            if(password_verify($p, $hash)){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
