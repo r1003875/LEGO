@@ -1,27 +1,21 @@
 <?php
+    include_once(__DIR__."/classes/User.php");
     if(!empty($_POST)){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];
-        if(empty($email) || empty($password) || empty($confirm_password)){
-            $error1 = true;
+        if($_POST['password'] === $_POST['confirm_password']){
+            try {
+                $user = new User();
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);
+                $user->setEmail($_POST['email']);
+                $user->setPassword($_POST['password']);
+                $user->save();
+                header('Location: login.php');
+            } catch (Exception $e) {
+                $error = $e->getMessage();
+            }
         }
         else{
-            if($password !== $confirm_password){
-                $error2 = true;
-            }
-            else{
-                $options = [
-                    'cost' => 15,
-                ];
-                $hash = password_hash($password, PASSWORD_DEFAULT, $options);
-                $conn = new PDO('mysql:host=localhost;dbname=legoshop','root', '');
-                $statement = $conn->prepare('INSERT INTO user (email, password) VALUES (:email, :password)');
-                $statement->bindValue(':email', $email);
-                $statement->bindValue(':password', $hash);
-                $statement->execute();
-                header('Location: login.php');
-            }
+            $password_mismatch = "Passwords didn't match";
         }
     }
 ?><!DOCTYPE html>
@@ -44,23 +38,27 @@
         <p>If you already have an account, log in.</p>
         <main>
             <form action="" method="post">
-                <?php if(isset($error1)): ?>
+                <?php if(isset($error)): ?>
                 <div class="woops">
-                    <p>Some fields were left empty</p>
+                    <?php echo $error; ?>
                 </div>
                 <?php endif; ?>
-                <?php if(isset($error2)): ?>
+                <?php if(isset($password_mismatch)): ?>
                 <div class="woops">
-                    <p>Passwords didn't match</p>
+                    <?php echo $password_mismatch; ?>
                 </div>
                 <?php endif; ?>
                 <div>
+                    <label for="firstname">Firstname</label>
+                    <input type="text" class="text_input" id="firstname" name="firstname">
+                </div>
+                <div>
+                    <label for="lastname">Lastname</label>
+                    <input type="text" class="text_input" id="lastname" name="lastname">
+                </div>
+                <div>
                     <label for="email">Email</label><br>
-                    <input type="text" class="text_input" id="email" name="email" value="<?php
-                        if(isset($email)){
-                            echo $email;
-                        }
-                    ?>">
+                    <input type="text" class="text_input" id="email" name="email">
                 </div>
                 <div>
                     <label for="password">Password</label><br>
