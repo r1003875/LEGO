@@ -5,14 +5,14 @@ body{
 
 .bg_color1{
     background-color: #f1f5f8;
-    width:100vw;
+    width:auto;
     height: 50vh;
 }
 
 .bg_color2{
     background-color: #ffd602;
-    width:100vw;
-    height: 50vh;
+    width:auto;
+    height: 60vh;
 }
 
 .lego_form{
@@ -101,10 +101,8 @@ form div{
 }
 
 .woops{
-    border: 1px solid #e3000c;
-    border-radius: 10px;
     color: #e3000c;
-    text-align: center;
+    text-align: left;
 }
 
 h2{

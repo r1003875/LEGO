@@ -4,7 +4,7 @@
         <a href="">SHOP</a>
         <a href="">DISCOVER</a>
         <a href="">HELP</a>
-        <a href="" class="highlighted">NEW</a>
+        <a href="new.php" class="highlighted">NEW</a>
     </div>
     <div class="secondary_links">
         <input type="text" placeholder="Search..." class="search_input">

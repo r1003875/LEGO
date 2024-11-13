@@ -1,6 +1,7 @@
 <?php
+    include_once(__DIR__."/classes/Db.php");
     function verifyLogin($e, $p){
-        $conn = new PDO('mysql:host=localhost;dbname=legoshop','root', '');
+        $conn = Db::getConnection();
         $statement = $conn->prepare('SELECT * FROM user WHERE email = :email');
         $statement->bindValue(':email', $e);
         $statement->execute();
@@ -29,7 +30,7 @@
             header('Location: index.php');
         }
         else{
-            $error = true;
+            $error = "Invalid email or password";
         }
     }
 ?><!DOCTYPE html>
@@ -54,7 +55,7 @@
             <form action="" method="post">
                 <?php if(isset($error)): ?>
                 <div class="woops">
-                    <p>Wrong email or password. Please try again.</p>
+                    <?php echo $error; ?>
                 </div>
                 <?php endif; ?>
                 <div>
