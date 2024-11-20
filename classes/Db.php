@@ -4,7 +4,7 @@
 
         public static function getConnection(){
             if(self::$conn == null){
-                self::$conn = new PDO("mysql:host=localhost;dbname=legoshop", "root", "");
+                self::$conn = new PDO("mysql:host=mysql.railway.internal;dbname=legoshop", "root", "garADLZVUFYUqkTgUQghrefyXcyKTIov");
                 return self::$conn;
             }
             else{
