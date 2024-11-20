@@ -202,3 +202,25 @@ article img{
     width: 20px;
     height: 20px;
 }
+
+.hidden{
+    display: none;
+}
+
+.categories{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 700px;
+    margin: 15px auto;
+
+}
+
+.categories a{
+    color: black;
+    text-transform: uppercase;
+}
+
+.categories a:hover{
+    text-decoration: underline;
+}

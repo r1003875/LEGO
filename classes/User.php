@@ -1,10 +1,10 @@
 <?php
     include_once("Db.php");
-    class User {
-        private $firstname;
-        private $lastname;
-        private $email;
-        private $password;
+    abstract class User {
+        protected $firstname;
+        protected $lastname;
+        protected $email;
+        protected $password;
 
         /**
          * Get the value of firstname
@@ -109,5 +109,14 @@
                 $statement->bindValue(":email", $this->email);
                 $statement->bindValue(":password", $this->password);
                 return $statement->execute();
+        }
+
+        public static function getUser($email){
+                $conn = Db::getConnection();
+                $statement = $conn->prepare('SELECT * FROM user WHERE email = :email');
+                $statement->bindValue(":email", $email);
+                $statement->execute();
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+
         }
     }

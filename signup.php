@@ -1,9 +1,10 @@
 <?php
     include_once(__DIR__."/classes/User.php");
+    include_once(__DIR__."/classes/Customer.php");
     if(!empty($_POST)){
         if($_POST['password'] === $_POST['confirm_password']){
             try {
-                $user = new User();
+                $user = new Customer();
                 $user->setFirstname($_POST['firstname']);
                 $user->setLastname($_POST['lastname']);
                 $user->setEmail($_POST['email']);

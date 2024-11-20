@@ -7,6 +7,7 @@
         private $min_age;
         private $rating;
         private $image;
+        private $category_id;
 
         /**
          * Get the value of name
@@ -133,13 +134,14 @@
 
         public function save(){
                 $conn = Db::getConnection();
-                $statement = $conn->prepare('INSERT INTO products (name, price, pieces_amount, min_age, rating, image) VALUES (:name, :price, :pieces_amount, :min_age, :rating, :image)');
+                $statement = $conn->prepare('INSERT INTO products (name, price, pieces_amount, min_age, rating, image, category_id) VALUES (:name, :price, :pieces_amount, :min_age, :rating, :image, :category_id)');
                 $statement->bindValue(':name', $this->name);
                 $statement->bindValue(':price', $this->price);
                 $statement->bindValue(':pieces_amount', $this->pieces_amount);
                 $statement->bindValue(':min_age', $this->min_age);
                 $statement->bindValue(':rating', $this->rating);
                 $statement->bindValue(':image', $this->image);
+                $statement->bindValue(':category_id', $this->category_id);
                 return $statement->execute();
         }
     
@@ -147,5 +149,37 @@
                 $conn = Db::getConnection();
                 $statement = $conn->query('SELECT * FROM products');
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function getProductsByCategory($category){
+                $conn = Db::getConnection();
+                $statement = $conn->prepare('SELECT id FROM category WHERE name = :category');
+                $statement->bindValue(':category', $category);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC)[0]['id'];
+                $statement = $conn->prepare('SELECT * FROM products WHERE category_id = :category_id');
+                $statement->bindValue(':category_id', $result);
+                $statement->execute();
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        /**
+         * Get the value of category_id
+         */ 
+        public function getCategory_id()
+        {
+                return $this->category_id;
+        }
+
+        /**
+         * Set the value of category_id
+         *
+         * @return  self
+         */ 
+        public function setCategory_id($category_id)
+        {
+                $this->category_id = $category_id;
+
+                return $this;
         }
     }
