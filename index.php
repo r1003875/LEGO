@@ -17,7 +17,7 @@
     else{
         $user = new Customer();
     }
-    $user->setFirstname($getUser[0]['first_name']);
+    $_SESSION['first_name'] = $getUser[0]['first_name'];
     $categories = Category::getAll();
     //$test = Product::getProductsByCategory("creator");
 ?><!DOCTYPE html>
@@ -30,6 +30,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="images/LEGO_logo.png" type="image/x-icon">
+
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
@@ -39,20 +41,22 @@
         <?php endforeach; ?>
     </div>
     <main class="shopping_page">
-    <?php foreach($products as $p): ?>
-        <article>
-            <div>
-                <img src=<?php echo $p['image']?> alt="notre dame">
-            </div>
-            <div class="span_div">
-                <span class="age"><img src="images/cake-candles-solid.svg" alt="age" class="icon"> <?php echo $p['min_age'] ?>+</span>
-                <span class="pieces"><img src="images/puzzle-piece-solid.svg" alt="pieces" class="icon"> <?php echo $p['pieces_amount'] ?></span>
-                <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $p['rating'] ?></span>
-            </div>
-            <h4><?php echo $p['name'] ?></h4>
-            <span class="price">$<?php echo $p['price'] ?></span>
-            <div class="btn2">Add to cart</div>
-        </article>  
+    <?php foreach($products as $key => $p): ?>
+        <a href="details.php?product=<?php echo $p['id']; ?>" class="article_frame">
+            <article>
+                <div class="img_holder">
+                    <img src=<?php echo $p['image']?> alt="notre dame">
+                </div>
+                <div class="span_div">
+                    <span class="age"><img src="images/cake-candles-solid.svg" alt="age" class="icon"> <?php echo $p['min_age'] ?>+</span>
+                    <span class="pieces"><img src="images/puzzle-piece-solid.svg" alt="pieces" class="icon"> <?php echo $p['pieces_amount'] ?></span>
+                    <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $p['rating'] ?></span>
+                </div>
+                <h4><?php echo $p['name'] ?></h4>
+                <span class="price">$<?php echo $p['price'] ?></span>
+                <div class="btn2">Add to cart</div>
+            </article>
+        </a> 
     <?php endforeach; ?>        
     </main>
 

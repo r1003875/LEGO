@@ -29,6 +29,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="images/LEGO_logo.png" type="image/x-icon">
+
 </head>
 <body>
     <div class="bg_color1"></div>
@@ -59,7 +61,7 @@
                 </div>
                 <div>
                     <label for="email">Email</label><br>
-                    <input type="text" class="text_input" id="email" name="email">
+                    <input type="email" class="text_input" id="email" name="email">
                 </div>
                 <div>
                     <label for="password">Password</label><br>

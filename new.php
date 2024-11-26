@@ -41,6 +41,7 @@
     <title>New</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="images/LEGO_logo.png" type="image/x-icon">
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
