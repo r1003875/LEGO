@@ -9,7 +9,6 @@
     include_once(__DIR__."/classes/Admin.php");
     include_once(__DIR__."/classes/Customer.php");
     include_once(__DIR__."/classes/Category.php");
-    $products = Product::getAll();
     $getUser = User::getUser($_SESSION['email']);
     if($getUser[0]['admin'] != 0){
         $user = new Admin();
@@ -19,7 +18,17 @@
     }
     $_SESSION['first_name'] = $getUser[0]['first_name'];
     $categories = Category::getAll();
-    //$test = Product::getProductsByCategory("creator");
+    if(isset($_GET['category'])){
+        if($_GET['category'] == 'all'){
+            $products = Product::getAll();
+        }
+        else{
+            $products = Product::getProductsByCategory($_GET['category']);
+        }
+    }
+    else{
+        $products = Product::getAll();
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,8 +45,8 @@
 <body>
     <?php include_once("nav.inc.php"); ?>
     <div class="categories">
-        <?php foreach($categories as $c): ?>
-            <a href=""><?php echo $c; ?></a>
+        <?php foreach($categories as $key => $c): ?>
+            <a href="index.php?category=<?php echo $c; ?>"><?php echo $c; ?></a>
         <?php endforeach; ?>
     </div>
     <main class="shopping_page">
