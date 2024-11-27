@@ -9,12 +9,14 @@
             $c->setRating($_POST['rating']);
             $c->setDate();
             $c->save();
+            $username = $c->getUserById($_POST['user_id']);
             $response = [
                 'status' => 'success',
                 'body' => htmlspecialchars($c->getComment()),
                 'rating' => $c->getRating(),
                 'date' => $c->getDate(),
                 'user_id' => $c->getUser_id(),
+                'username' => $username,
                 'message' => 'Comment was saved'
             ];
             header('Content-Type: application/json');

@@ -9,6 +9,7 @@
     include_once(__DIR__."/classes/Admin.php");
     include_once(__DIR__."/classes/Customer.php");
     include_once(__DIR__."/classes/Category.php");
+    include_once(__DIR__."/classes/Review.php");
     $products = Product::getAll();
     $getUser = User::getUser($_SESSION['email']);
     if($getUser[0]['admin'] != 0){
@@ -32,10 +33,9 @@
 
     }
     $product = $products[$k];
-    
-    if(!empty($_POST)){
-        var_dump($_POST);
-    }
+    $user_id = $getUser[0]['id'];   
+
+    $allReviews = Review::getAll($product['id']);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +69,7 @@
     <section class="review_section">
         <h3>Reviews</h3>
         <div class="review_form">
-            <form action="" method="post">
+            
                 <label for="custom_review">Leave your review</label>
                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                 <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon">
@@ -83,27 +83,23 @@
                     </select>
                 </span>
                 <textarea name="custom_review" id="custom_review"></textarea>
-                <input type="submit" value="Comment" class="btn1">
-            </form>
+                <input type="submit" value="Comment" class="btn1" id="addReviewBtn" data-product_id="<?php echo $product['id']; ?>" data-user_id="<?php echo $user_id; ?>">
+            
         </div>
         <div class="reviews">
+            <?php foreach($allReviews as $review): ?>
             <div class="review">
                 <div class="review_details">
-                    <span class="reviewer_name">Arno Van Abbenyen</span>
-                    <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon">5</span>
-                    <span class="review_date">25-11-2024 </span>
+                    <span class="reviewer_name"><?php echo Review::getUserById($review['user_id']) ?></span>
+                    <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"><?php echo $review['rating'];?></span>
+                    <span class="review_date"><?php $newDate = date("d-m-Y", strtotime($review['date'])); echo $newDate;?> </span>
                 </div>
-                <p class="comment">Goede kwaliteit. Snel geleverd. Top product!</p>
+                <p class="comment"><?php echo $review['comment']; ?></p>
             </div>
-            <div class="review">
-                <div class="review_details">
-                    <span class="reviewer_name">Simon Van den Eynde</span>
-                    <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon">5</span>
-                    <span class="review_date">26-11-2024 </span>
-                </div>
-                <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, numquam. Natus omnis iste eaque quibusdam est accusantium assumenda quasi a.</p>
-            </div>
+            <?php endforeach; ?>
         </div>
-    </section>    
+    </section>   
+    
+    <script src="js/script.js"></script>
 </body>
 </html>

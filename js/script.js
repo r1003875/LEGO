@@ -19,7 +19,7 @@ document.querySelector('#addReviewBtn').addEventListener('click', function() {
         newReview.innerHTML =       
             `
                 <div class="review_details">
-                    <span class="reviewer_name">Simon</span>
+                    <span class="reviewer_name">${result.username}</span>
                     <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon">${result.rating}</span>
                     <span class="review_date">${result.date} </span>
                 </div>
@@ -30,5 +30,6 @@ document.querySelector('#addReviewBtn').addEventListener('click', function() {
     .catch(error => {
         console.error("Error:", error);
     });
+    document.querySelector('#custom_review').value = "";
+
 });
-//${result.user_id}
