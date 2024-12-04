@@ -119,4 +119,12 @@
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
 
         }
+
+        public function updatePassword($email){
+                $conn = Db::getConnection();
+                $statement = $conn->prepare('UPDATE user SET password = :password WHERE email = :email');
+                $statement->bindValue(":password", $this->password);
+                $statement->bindValue(":email", $email);
+                return $statement->execute();
+        }
     }
