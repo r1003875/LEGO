@@ -13,7 +13,23 @@
         }
         else{
             $user = new Customer();
+
         }
+        $profile = $user->getUser($getUser[0]['email']);
+
+        if(!empty($_POST)){
+            if(!empty($_POST['new_password']) && !empty($_POST['confirm_new_password'])){
+                if($_POST['new_password'] === $_POST['confirm_new_password']){
+                    $user->setPassword($_POST['new_password']);
+                    $user->updatePassword($getUser[0]['email']);
+                    $message = "Password updated.";
+                }
+                else{
+                    $error = "Passwords do not match.";
+                }
+            }
+        }
+        
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,5 +44,37 @@
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
+    
+    <main class="account">
+        <h2>Account</h2>
+        <form class="account_info" action="" method="post">
+            <div>
+                <h3>First name</h3>
+                <p><?php echo $profile[0]['first_name']; ?></p>
+            </div>
+            <div>
+                <h3>Last name</h3>
+                <p><?php echo $profile[0]['last_name']; ?></p>
+            </div>
+            <div>
+                <h3>Email</h3>
+                <p><?php echo $profile[0]['email']; ?></p>
+            </div>
+            <div>
+                <h3>Edit password</h3>
+                <h4>New password</h4>
+                <input type="password" name="new_password" value="">
+                <h4>Confirm new password</h4>
+                <input type="password" name="confirm_new_password" value="">
+                <?php if(isset($error)): ?>
+                    <div class="woops"><?php echo $error; ?></div>
+                <?php endif; ?>
+                <?php if(isset($message)): ?>
+                    <div class="check"><?php echo $message; ?></div>
+                <?php endif; ?>
+            </div>
+            <input type="submit" value="Confirm" class="btn1">
+        </form>
+    </main>
 </body>
 </html>
