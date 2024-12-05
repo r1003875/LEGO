@@ -105,6 +105,11 @@ form div{
     text-align: left;
 }
 
+.check{
+    color: #2ed200;
+    text-align: left;
+}
+
 h2{
     font-weight: 500;
 }
@@ -364,4 +369,51 @@ article img{
     border: 1px solid rgb(193, 193, 193);
     border-radius: 5px;
     padding: 5px;
+}
+
+.account{
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px auto;
+    border: 1px solid rgb(193, 193, 193);
+}
+
+.account_info{
+    display: grid;
+    grid-template-columns: 300px 300px;
+    gap: 50px;
+    justify-content: center;
+}
+
+.account h2{
+    font-weight: 400;
+}
+
+.new_product{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: auto;
+}
+
+.new_product div{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.edit_product{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: auto;
+}
+
+.edit_product div{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
