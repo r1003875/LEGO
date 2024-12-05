@@ -182,4 +182,13 @@
 
                 return $this;
         }
+
+        public static function getProductById($id){
+                $conn = Db::getConnection();
+                $statement = $conn->prepare('SELECT * FROM products WHERE id = :id');
+                $statement->bindValue(':id', $id);
+                $statement->execute();
+                return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
     }
