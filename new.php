@@ -104,9 +104,10 @@
 
     <script>
         let select = document.querySelector('#select_product');
+        let link = document.querySelector('#edit_link');
+        link.href = `edit.php?p=${select.value}`;
         select.addEventListener('change', function(){
             console.log(select.value);
-            let link = document.querySelector('#edit_link');
             link.href = `edit.php?p=${select.value}`;
         }); 
     </script>

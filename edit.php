@@ -24,6 +24,32 @@
     }
 
     $categories = Category::getAll();
+
+    if(!empty($_POST)){
+        if(isset($_POST['delete'])){
+            $product = new Product();
+            $product->delete($id);
+            header('Location: index.php');
+        }
+        try {
+            //add all elements to a new product and update the existing product with the same id
+            $updated_product = new Product();
+            $updated_product->setName($_POST['name']);
+            $updated_product->setPrice($_POST['price']);
+            $updated_product->setPieces_amount($_POST['pieces_amount']);
+            $updated_product->setMin_age($_POST['min_age']);
+            $updated_product->setRating($_POST['rating']);
+            $updated_product->setImage($_POST['image']);
+            $updated_product->setCategory_id($_POST['category_id']);
+            $updated_product->update($id);
+            $succes = "Product updated!";
+            $id = $_GET['p'];
+            $product = Product::getProductById($id);
+            
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+    }
     
 ?><!DOCTYPE html>
 <html lang="en">
@@ -41,6 +67,7 @@
         <a href="new.php">←</a>
     </div>
     <section class="edit_product">
+        <h2>Edit</h2>
         <form action="" method="post">
                 <?php if(isset($error)): ?>
                     <div class="woops"><?php echo $error; ?></div>
@@ -85,10 +112,15 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn1">Edit product</button>
-
+                <button type="submit" class="btn1">Confirm changes</button>
+                <?php if(isset($succes)): ?>
+                    <div class="check"><?php echo $succes; ?></div>
+                <?php endif; ?>
+            </form>
+            <form action="" method="post">
+                <input type="hidden" name="delete" value="0">
+                <button type="submit" class="btn1" name="delete">Delete product</button>
             </form>
         </section>
-    
 </body>
 </html>
