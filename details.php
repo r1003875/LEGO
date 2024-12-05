@@ -62,7 +62,7 @@
             <span class="age"><img src="images/cake-candles-solid.svg" alt="age" class="icon"> <?php echo $product['min_age'] ?>+</span>
             <span class="pieces"><img src="images/puzzle-piece-solid.svg" alt="pieces" class="icon"> <?php echo $product['pieces_amount'] ?></span>
             <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $product['rating'] ?></span>
-            <span class="price">$<?php echo $product['price'] ?></span>
+            <span class="price"><?php echo $product['price']." ¢" ?></span>
             <div class="btn2">Add to cart</div>
         </div>
     </main>

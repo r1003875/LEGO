@@ -1,5 +1,6 @@
 <?php 
     include_once("classes/User.php"); 
+    include_once("classes/Customer.php");
 ?><nav>
     <div class="primary_links">
         <a href="index.php"><img src="images/LEGO_logo.png" alt="logo" class="logo"></a>
@@ -11,6 +12,10 @@
     
     <div class="secondary_links">
         <input type="text" placeholder="Search..." class="search_input">
+        <span><?php
+         $credits = User::getUser($_SESSION['email'])[0]['credits']; 
+         echo $credits." ¢";
+         ?></span>
         <a href=""><img src="images/bag-shopping-solid.svg" alt="cart" class="shopping_bag"></a>
         <a href="account.php"><?php echo htmlspecialchars(strtoupper($_SESSION['first_name'])); ?></a>
         <a href="logout.php">LOG OUT</a>

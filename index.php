@@ -62,7 +62,7 @@
                     <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $p['rating'] ?></span>
                 </div>
                 <h4><?php echo $p['name'] ?></h4>
-                <span class="price">$<?php echo $p['price'] ?></span>
+                <span class="price"><?php echo $p['price']." ¢" ?></span>
                 <div class="btn2">Add to cart</div>
             </article>
         </a> 
