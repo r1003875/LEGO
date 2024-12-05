@@ -9,7 +9,7 @@
             $statement = $conn->prepare('SELECT name FROM category');
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $categories = ["All"];
+            $categories = ["all"];
             foreach($result as $r){
                 array_push($categories, $r['name']);
             }
