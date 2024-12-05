@@ -33,6 +33,11 @@
     }
 
     $categories = Category::getAll();
+    $products = Product::getAll();
+
+
+
+    
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +51,7 @@
 <body>
     <?php include_once("nav.inc.php"); ?>
     <main class="new_product">
+        <h2>Add new product</h2>
         <form action="" method="post">
             <?php if(isset($error)): ?>
                 <div class="woops"><?php echo $error; ?></div>
@@ -78,12 +84,31 @@
                 <label for="category_id">Category</label>
                 <select name="category_id" id="category_id">
                     <?php foreach($categories as $key => $c ): ?>
-                        <option value="<?php echo $key-1 ?>"><?php echo $c ?></option>
+                        <option value="<?php echo $key ?>"><?php echo $c ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <button type="submit" class="btn1">Add product</button>
 
         </form>
+    </main>
+    <section class="edit_product">
+        <h2>Edit product</h2>
+        <select name="select_product" id="select_product">
+            <?php foreach($products as $key => $p): ?>
+                <option value="<?php echo $p['id'] ?>"><?php echo $p['name'] ?></option>
+            <?php endforeach; ?>
+        </select>
+        <a href="edit.php?p=0" class="btn1" id="edit_link">Edit this product</a>
+    </section>
+
+    <script>
+        let select = document.querySelector('#select_product');
+        select.addEventListener('change', function(){
+            console.log(select.value);
+            let link = document.querySelector('#edit_link');
+            link.href = `edit.php?p=${select.value}`;
+        }); 
+    </script>
 </body>
 </html>
