@@ -1,23 +1,29 @@
 <?php
     class Customer extends User{
-        private $credtits;
+        private $credits;
 
         /**
-         * Get the value of credtits
+         * Get the value of credits
          */ 
-        public function getCredtits()
+        public function getCredits()
         {
-                return $this->credtits;
+                return $this->credits;
         }
 
         /**
-         * Set the value of credtits
+         * Set the value of credits
          *
          * @return  self
          */ 
-        public function setCredtits($credtits)
+        public function setCredits($credits)
         {
-                $this->credtits = $credtits;
+                if(empty($credits)){
+                    throw new Exception("Enter a credit amount.");
+                }
+                else if($credits < 0){
+                    throw new Exception("Credits can't be negative.");
+                }
+                $this->credits = $credits;
 
                 return $this;
         }
