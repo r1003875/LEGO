@@ -417,3 +417,29 @@ article img{
     justify-content: space-between;
     gap: 10px;
 }
+
+.cart_items_amount{
+    position:absolute;
+    top: 40px;
+}
+
+.cart{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 935px;
+    margin: 0 auto;
+}
+
+.cart_h2{
+    text-align: center;
+}
+
+.empty{
+    text-align: center;
+    border: 1px solid rgb(193, 193, 193);
+    padding: 5rem;
+    position: absolute;
+    top: 35%;
+    left: 40%;
+}

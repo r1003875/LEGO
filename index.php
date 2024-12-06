@@ -29,6 +29,12 @@
     else{
         $products = Product::getAll();
     }
+
+    if(!empty($_POST)){
+        if(!in_array($_POST['id'], $_SESSION['cart'])){
+            $_SESSION['cart'][] = $_POST['id'];
+        }
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,19 +58,22 @@
     <main class="shopping_page">
     <?php foreach($products as $key => $p): ?>
         <a href="details.php?product=<?php echo $p['id']; ?>" class="article_frame">
-            <article>
-                <div class="img_holder">
-                    <img src=<?php echo $p['image']?> alt="notre dame">
-                </div>
-                <div class="span_div">
-                    <span class="age"><img src="images/cake-candles-solid.svg" alt="age" class="icon"> <?php echo $p['min_age'] ?>+</span>
-                    <span class="pieces"><img src="images/puzzle-piece-solid.svg" alt="pieces" class="icon"> <?php echo $p['pieces_amount'] ?></span>
-                    <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $p['rating'] ?></span>
-                </div>
-                <h4><?php echo $p['name'] ?></h4>
-                <span class="price"><?php echo $p['price']." ¢" ?></span>
-                <div class="btn2">Add to cart</div>
-            </article>
+            <form action="" method="post">
+                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
+                <article>
+                    <div class="img_holder">
+                        <img src=<?php echo $p['image']?> alt="notre dame">
+                    </div>
+                    <div class="span_div">
+                        <span class="age"><img src="images/cake-candles-solid.svg" alt="age" class="icon"> <?php echo $p['min_age'] ?>+</span>
+                        <span class="pieces"><img src="images/puzzle-piece-solid.svg" alt="pieces" class="icon"> <?php echo $p['pieces_amount'] ?></span>
+                        <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $p['rating'] ?></span>
+                    </div>
+                    <h4><?php echo $p['name'] ?></h4>
+                    <span class="price"><?php echo $p['price']." ¢" ?></span>
+                    <input type="submit" class="btn2" value="Add to cart">
+                </article>
+            </form>
         </a> 
     <?php endforeach; ?>        
     </main>
