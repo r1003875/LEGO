@@ -34,8 +34,12 @@
     }
     $product = $products[$k];
     $user_id = $getUser[0]['id'];   
-
     $allReviews = Review::getAll($product['id']);
+    if(!empty($_POST)){
+        if(!isset($_SESSION['cart']) || !in_array($_POST['id'], $_SESSION['cart'])){
+            $_SESSION['cart'][] = $_POST['id'];
+        }
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,12 +62,15 @@
             <img src="<?php echo $product['image'] ?>" alt="<?php echo $product['name'] ?>">
         </div>
         <div class="product_information">
+        <form action="" method="post">
+            <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
             <h2><?php echo $product['name'] ?></h2>
             <span class="age"><img src="images/cake-candles-solid.svg" alt="age" class="icon"> <?php echo $product['min_age'] ?>+</span>
             <span class="pieces"><img src="images/puzzle-piece-solid.svg" alt="pieces" class="icon"> <?php echo $product['pieces_amount'] ?></span>
             <span class="rating"><img src="images/star-solid.svg" alt="rating" class="icon"> <?php echo $product['rating'] ?></span>
             <span class="price"><?php echo $product['price']." ¢" ?></span>
-            <div class="btn2">Add to cart</div>
+            <input type="submit" class="btn2" value="Add to cart">
+        </form>
         </div>
     </main>
     <section class="review_section">
