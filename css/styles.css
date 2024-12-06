@@ -70,6 +70,7 @@ form div{
     border-radius: 5px;
     background-color: #005ad2;
     margin: 5px 0; 
+    text-align: center;
 }
 
 .btn2{
@@ -79,7 +80,7 @@ form div{
     border-radius: 20px;
     background-color: #f47d1f;
     margin: 5px 0; 
-    width: 100px;
+    width: 110px;
     text-align: center;
 }
 
@@ -267,7 +268,7 @@ article img{
     max-height: 400px;
 }
 
-.product_information{
+.product_information form{
     height: 400px;
     border-left: 1px solid rgb(193, 193, 193);
     display: flex;
@@ -442,4 +443,17 @@ article img{
     position: absolute;
     top: 35%;
     left: 40%;
+}
+
+.checkout{
+    height: 200px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout p{
+    font-weight: 500;
 }

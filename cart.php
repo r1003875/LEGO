@@ -16,6 +16,22 @@
         else{
             $user = new Admin();
         }
+        $total_price = 0;
+        if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+            foreach($_SESSION['cart'] as $key => $id){
+                $product = Product::getProductById($id);
+                $total_price += $product['price'];
+            }
+        }
+        if(!empty($_POST)){
+            if(isset($_POST['id'])){
+                $key = array_search($_POST['id'], $_SESSION['cart']);
+                unset($_SESSION['cart'][$key]);
+                $product = Product::getProductById($id);
+                $total_price -= $product['price'];
+            }
+        }
+       
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +51,7 @@
         <?php $product = Product::getProductById($id); ?>
             <form action="" method="post">
                 <article>
+                    <input type="hidden" name="id" value="<?php echo $product['id'] ?>">
                     <div class="img_holder">
                         <img src=<?php echo $product['image']?> alt="notre dame">
                     </div>
@@ -49,6 +66,10 @@
                 </article>
             </form>
         <?php endforeach; ?>
+            <div class="checkout">
+                <p>Total price: <span class="total_price"><?php echo $total_price ?></span> ¢</p>
+                <a href="checkout.php" class="btn1">Checkout</a>
+            </div>
         <?php else: ?>
             <div class="empty">
                 <p>Your cart is empty</p>

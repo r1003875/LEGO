@@ -29,7 +29,7 @@
     else{
         $products = Product::getAll();
     }
-
+    
     if(!empty($_POST)){
         if(!isset($_SESSION['cart']) || !in_array($_POST['id'], $_SESSION['cart'])){
             $_SESSION['cart'][] = $_POST['id'];
