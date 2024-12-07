@@ -1,70 +1,80 @@
 <?php
-            session_start();
-            if($_SESSION['loggedin'] !== true){
-                header('Location: login.php');
-            }
-            if($_SESSION['can_checkout'] !== true){
-                header('Location: cart.php');
-            }
-            include_once(__DIR__."/classes/Db.php");
-            include_once(__DIR__."/classes/Product.php");
-            include_once("classes/User.php");
-            include_once("classes/Admin.php");
-            include_once("classes/Customer.php");
-            include_once("classes/Category.php");
-            include_once("classes/Address.php");
-            $getUser = User::getUser($_SESSION['email']);
-            if($getUser[0]['admin'] === 0){
-                $user = new Customer();
+    session_start();
+    if($_SESSION['loggedin'] !== true){
+        header('Location: login.php');
+    }
+    if($_SESSION['can_checkout'] !== true){
+        header('Location: cart.php');
+    }
+    include_once(__DIR__."/classes/Db.php");
+    include_once(__DIR__."/classes/Product.php");
+    include_once("classes/User.php");
+    include_once("classes/Admin.php");
+    include_once("classes/Customer.php");
+    include_once("classes/Category.php");
+    include_once("classes/Address.php");
+    include_once("classes/Order.php");
+    $getUser = User::getUser($_SESSION['email']);
+    if($getUser[0]['admin'] === 0){
+        $user = new Customer();
+    }
+    else{
+        $user = new Admin();
+    }
+    $total_price = 0;
+    if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+        foreach($_SESSION['cart'] as $key => $id){
+            $product = Product::getProductById($id);
+            $total_price += $product['price'];
+        }
+    }
+
+    $credits = $getUser[0]['credits'];
+    $new_balance = $credits - $total_price;
+
+    //if user already has an address_id that is not 0, use those values
+    if($getUser[0]['address_id'] !== 0){
+        $user_address = Address::getAddressById($getUser[0]['address_id']);
+    }
+
+    if(!empty($_POST)){
+        try{
+            $address = new Address();
+            $address->setStreet($_POST['street']);
+            $address->setHousenumber($_POST['housenumber']);
+            $address->setCity($_POST['city']);
+            $address->setCountry($_POST['country']);
+            $doesAddressExist = $address->checkAddress($_POST['street'], $_POST['housenumber'], $_POST['city'], $_POST['country']);
+            if(!$doesAddressExist){
+                $address->save();
+                $address_id = Address::getAddressId($_POST['street'], $_POST['housenumber'], $_POST['city'], $_POST['country']);
             }
             else{
-                $user = new Admin();
+                $address_id = $doesAddressExist;
             }
-            $total_price = 0;
-            if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
-                foreach($_SESSION['cart'] as $key => $id){
-                    $product = Product::getProductById($id);
-                    $total_price += $product['price'];
-                }
-            }
+            
+        }
+        catch(Exception $e){
+            $error = $e->getMessage();
+        }
 
-            $credits = $getUser[0]['credits'];
-            $new_balance = $credits - $total_price;
+        
+        $user->updateBalance($new_balance);
+        $user->setAddress($address_id);
 
-            //if user already has an address_id that is not 0, use those values
-            if($getUser[0]['address_id'] !== 0){
-                $user_address = Address::getAddressById($getUser[0]['address_id']);
-            }
+        $order = new Order();
+        $order->setUser_id($getUser[0]['id']);
+        $order->setAddress_id($address_id);
+        $order_id = $order->save();
 
-            if(!empty($_POST)){
-                try{
-                    $address = new Address();
-                    $address->setStreet($_POST['street']);
-                    $address->setHousenumber($_POST['housenumber']);
-                    $address->setCity($_POST['city']);
-                    $address->setCountry($_POST['country']);
-                    $doesAddressExist = $address->checkAddress($_POST['street'], $_POST['housenumber'], $_POST['city'], $_POST['country']);
-                    if(!$doesAddressExist){
-                        $address->save();
-                        $address_id = Address::getAddressId($_POST['street'], $_POST['housenumber'], $_POST['city'], $_POST['country']);
-                    }
-                    else{
-                        $address_id = $doesAddressExist;
-                    }
-                    
-                }
-                catch(Exception $e){
-                    $error = $e->getMessage();
-                }
+        foreach($_SESSION['cart'] as $key => $product_id){
+            Order::addProductsToOrder($order_id, $product_id);
+        }
 
-                
-                $user->updateBalance($new_balance);
-                
-                $user->setAddress($address_id);
-                unset($_SESSION['cart']);
-                header('Location: index.php');
-                
-            }
+        unset($_SESSION['cart']);
+        header('Location: index.php');
+        
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
