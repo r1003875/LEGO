@@ -16,7 +16,7 @@
          $credits = User::getUser($_SESSION['email'])[0]['credits']; 
          echo $credits." ¢";
          ?></span>
-        <a href="cart.php"><img src="images/bag-shopping-solid.svg" alt="cart" class="shopping_bag"><span class="cart_items_amount"><?php if(isset($_SESSION['cart'])){echo count($_SESSION['cart']);}?></span></a>
+        <a href="cart.php"><img src="images/bag-shopping-solid.svg" alt="cart" class="shopping_bag"><span class="cart_items_amount"><?php if(isset($_SESSION['cart'])){if(count($_SESSION['cart']) !== 0){echo count($_SESSION['cart']);} }?></span></a>
         <a href="account.php"><?php echo htmlspecialchars(strtoupper($_SESSION['first_name'])); ?></a>
         <a href="logout.php">LOG OUT</a>
     </div>
