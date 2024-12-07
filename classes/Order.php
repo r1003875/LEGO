@@ -79,4 +79,20 @@
             $statement->bindValue(":product_id", $product_id);
             $statement->execute();
         }
+
+        public static function getOrders($user_id){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from `order` where user_id = :user_id");
+            $statement->bindValue(":user_id", $user_id);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function getOrderProducts($order_id){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from order_products where order_id = :order_id");
+            $statement->bindValue(":order_id", $order_id);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
     }

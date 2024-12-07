@@ -7,6 +7,8 @@
         include_once(__DIR__."/classes/User.php");
         include_once(__DIR__."/classes/Admin.php");
         include_once(__DIR__."/classes/Customer.php");
+        include_once(__DIR__."/classes/Order.php");
+        include_once(__DIR__."/classes/Product.php");
         $getUser = User::getUser($_SESSION['email']);
         if($getUser[0]['admin'] != 0){
             $user = new Admin();
@@ -29,6 +31,8 @@
                 }
             }
         }
+
+        $orders = Order::getOrders($getUser[0]['id']);
         
 ?><!DOCTYPE html>
 <html lang="en">
@@ -77,9 +81,27 @@
         </form>
         <section class="user_orders">
             <h2>Your orders</h2>
-            <?php
-                
-            ?>
+            <?php foreach($orders as $order): ?>
+                    <article>
+                    <?php 
+                        $order_products = Order::getOrderProducts($order['id']);
+                        echo "<div class='order'>";
+                        echo "<p>Order: #".$order['id']."</p>";
+                        echo "<p>Order date: ".date("d-m-Y", strtotime($order['order_date']))."</p>";
+                        echo "<p>Status: ".$order['status']."</p>";
+                        echo "</div>";
+                        echo "<div class='products'>";
+                        foreach($order_products as $product){
+                            $product_id = $product['products_id'];
+                            $product = Product::getProductById($product_id);
+                            echo "<div class='product'>";
+                            echo "<div class='order_image_holder'><img src='".$product['image']."' alt='".$product['name']."'></div>";
+                            echo "<p>".$product['name']."</p>";
+                            echo "</div>";
+                        }
+                    ?>
+                    </article>
+                <?php endforeach;?>
         </section>
     </main>
 </body>
