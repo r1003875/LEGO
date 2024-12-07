@@ -62,6 +62,7 @@
                 <div>
                     <label for="email">Email</label><br>
                     <input type="email" class="text_input" id="email" name="email">
+                    <p class="woops hidden" id="email_error">This email is not available.</p>
                 </div>
                 <div>
                     <label for="password">Password</label><br>
@@ -83,5 +84,7 @@
             </div>
         </main>
     </div>
+
+    <script src="js/email.js"></script>
 </body>
 </html>
