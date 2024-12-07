@@ -31,6 +31,9 @@
 
     $credits = $getUser[0]['credits'];
     $new_balance = $credits - $total_price;
+    if($new_balance < 0){
+        $balance_error = "You don't have enough credits to buy these products.";
+    }
 
     //if user already has an address_id that is not 0, use those values
     if($getUser[0]['address_id'] !== 0){
@@ -73,7 +76,6 @@
 
         unset($_SESSION['cart']);
         header('Location: index.php');
-        
     }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -105,45 +107,51 @@
         ?>
         <div class="checkout_information">
             <p>Total price: <span class="total_price"><?php echo $total_price ?></span> ¢</p>
-            <p>Your balance after this transaction will be: <span class="new_balance"><?php echo $new_balance ?></span> ¢</p>
+            <?php if(!isset($balance_error)): ?>
+                <p>Your balance after this transaction will be: <span class="new_balance"><?php echo $new_balance ?></span> ¢</p>                
+            <?php endif; ?>
         </div>
         </div>
-        <form action="" method="post" class="adress_input">
-        <?php if(isset($error)): ?>
-            <p class="woops"><?php echo $error; ?></p>
-        <?php endif; ?>
-            <div>
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="text_input" value="<?php echo $getUser[0]['first_name']." ".$getUser[0]['last_name']; ?>">
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="text_input" value="<?php echo $getUser[0]['email']; ?>">
-            </div>
-            <div>
-                <label for="street">Street</label>
-                <input type="text" name="street" id="street" class="text_input" value="<?php if(isset($user_address)){echo $user_address['street'];} ?>">
-            </div>
-            <div>
-                <label for="housenumber">Housenumber</label>
-                <input type="text" name="housenumber" id="housenumber" class="text_input" value="<?php if(isset($user_address)){echo $user_address['housenumber'];} ?>">
-            </div>
-            <div>
-                <label for="city">City</label>
-                <input type="text" name="city" id="city" class="text_input" value="<?php if(isset($user_address)){echo $user_address['city'];} ?>">
-            </div>
-            <div>
-                <label for="country">Country</label>
-                <select name="country" id="country">
-                    <option value="BE" <?php if(isset($user_address) && $user_address["country"] === "BE"){echo "selected";} ?>>Belgium</option>
-                    <option value="NL" <?php if(isset($user_address) && $user_address["country"] === "NL"){echo "selected";} ?>>Netherlands</option>
-                    <option value="FR" <?php if(isset($user_address) && $user_address["country"] === "FR"){echo "selected";} ?>>France</option>
-                    <option value="DE" <?php if(isset($user_address) && $user_address["country"] === "DE"){echo "selected";} ?>>Germany</option>
-                    <option value="UK" <?php if(isset($user_address) && $user_address["country"] === "UK"){echo "selected";} ?>>United Kingdom</option>
-                </select>
-            </div>
+        <?php if(isset($balance_error)): ?>
+            <p class="balance_woops"><?php echo $balance_error; ?></p>
+        <?php else: ?>
+            <form action="" method="post" class="adress_input">
+            <?php if(isset($error)): ?>
+                <p class="woops"><?php echo $error; ?></p>
+            <?php endif; ?>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" class="text_input" value="<?php echo $getUser[0]['first_name']." ".$getUser[0]['last_name']; ?>">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="text_input" value="<?php echo $getUser[0]['email']; ?>">
+                </div>
+                <div>
+                    <label for="street">Street</label>
+                    <input type="text" name="street" id="street" class="text_input" value="<?php if(isset($user_address)){echo $user_address['street'];} ?>">
+                </div>
+                <div>
+                    <label for="housenumber">Housenumber</label>
+                    <input type="text" name="housenumber" id="housenumber" class="text_input" value="<?php if(isset($user_address)){echo $user_address['housenumber'];} ?>">
+                </div>
+                <div>
+                    <label for="city">City</label>
+                    <input type="text" name="city" id="city" class="text_input" value="<?php if(isset($user_address)){echo $user_address['city'];} ?>">
+                </div>
+                <div>
+                    <label for="country">Country</label>
+                    <select name="country" id="country">
+                        <option value="BE" <?php if(isset($user_address) && $user_address["country"] === "BE"){echo "selected";} ?>>Belgium</option>
+                        <option value="NL" <?php if(isset($user_address) && $user_address["country"] === "NL"){echo "selected";} ?>>Netherlands</option>
+                        <option value="FR" <?php if(isset($user_address) && $user_address["country"] === "FR"){echo "selected";} ?>>France</option>
+                        <option value="DE" <?php if(isset($user_address) && $user_address["country"] === "DE"){echo "selected";} ?>>Germany</option>
+                        <option value="UK" <?php if(isset($user_address) && $user_address["country"] === "UK"){echo "selected";} ?>>United Kingdom</option>
+                    </select>
+                </div>
 
-            <input type="submit" value="Place order" class="btn1">
-        </form>
+                <input type="submit" value="Place order" class="btn1">
+            </form>
+        <?php endif; ?>
 </body>
 </html>

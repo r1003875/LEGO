@@ -579,3 +579,8 @@ article img{
     border-right: 1px solid rgb(193, 193, 193);
     padding-right: 10px;
 }
+
+.balance_woops{
+    color: #e3000c;
+    text-align: center;
+}

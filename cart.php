@@ -28,7 +28,7 @@
             if(isset($_POST['id'])){
                 $key = array_search($_POST['id'], $_SESSION['cart']);
                 unset($_SESSION['cart'][$key]);
-                $product = Product::getProductById(isset($_POST['id']));
+                $product = Product::getProductById($_POST['id']);
                 $total_price -= $product['price'];
                 if(empty($_SESSION['cart'])){
                     $_SESSION['can_checkout'] = false;
