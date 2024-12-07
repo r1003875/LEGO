@@ -385,8 +385,19 @@ article img{
 .account_info{
     display: grid;
     grid-template-columns: 300px 300px;
-    gap: 50px;
     justify-content: center;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .account h2{

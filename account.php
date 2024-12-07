@@ -48,19 +48,19 @@
     <main class="account">
         <h2>Account</h2>
         <form class="account_info" action="" method="post">
-            <div>
+            <div class="left">
                 <h3>First name</h3>
                 <p><?php echo $profile[0]['first_name']; ?></p>
             </div>
-            <div>
+            <div class="right">
                 <h3>Last name</h3>
                 <p><?php echo $profile[0]['last_name']; ?></p>
             </div>
-            <div>
+            <div class="left">
                 <h3>Email</h3>
                 <p><?php echo $profile[0]['email']; ?></p>
             </div>
-            <div>
+            <div class="right">
                 <h3>Edit password</h3>
                 <h4>New password</h4>
                 <input type="password" name="new_password" value="">
@@ -72,9 +72,15 @@
                 <?php if(isset($message)): ?>
                     <div class="check"><?php echo $message; ?></div>
                 <?php endif; ?>
+                <input type="submit" value="Confirm" class="btn1">
             </div>
-            <input type="submit" value="Confirm" class="btn1">
         </form>
+        <section class="user_orders">
+            <h2>Your orders</h2>
+            <?php
+                
+            ?>
+        </section>
     </main>
 </body>
 </html>
