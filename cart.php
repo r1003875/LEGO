@@ -18,6 +18,7 @@
         }
         $total_price = 0;
         if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+            $_SESSION['can_checkout'] = true;
             foreach($_SESSION['cart'] as $key => $id){
                 $product = Product::getProductById($id);
                 $total_price += $product['price'];
@@ -27,8 +28,11 @@
             if(isset($_POST['id'])){
                 $key = array_search($_POST['id'], $_SESSION['cart']);
                 unset($_SESSION['cart'][$key]);
-                $product = Product::getProductById($id);
+                $product = Product::getProductById(isset($_POST['id']));
                 $total_price -= $product['price'];
+                if(empty($_SESSION['cart'])){
+                    $_SESSION['can_checkout'] = false;
+                }
             }
         }
        
