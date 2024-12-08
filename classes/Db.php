@@ -4,7 +4,15 @@
 
         public static function getConnection(){
             if(self::$conn == null){
-                self::$conn = new PDO("mysql:host=localhost;dbname=legoshop", "root", "");
+                $pathToSSL = __DIR__ . '/../CA.pem';
+                $options = [
+                    PDO::MYSQL_ATTR_SSL_CA => $pathToSSL,
+                ];
+                $host = "legodb.mysql.database.azure.com";
+                $db = "legoshop";
+                $user = "legoadmin";
+                $pass = "EHCSO&8DH28D";
+                self::$conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
                 return self::$conn;
             }
             else{
