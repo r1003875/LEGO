@@ -3,7 +3,7 @@
     include_once("classes/Customer.php");
 ?><nav>
     <div class="primary_links">
-        <a href="index.php"><img src="images/LEGO_logo.png" alt="logo" class="logo"></a>
+        <a href="index.php"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png" alt="logo" class="logo"></a>
         <a href="index.php">SHOP</a>
         <a href="">DISCOVER</a>
         <a href="">HELP</a>
