@@ -8,10 +8,10 @@
                 $options = [
                     PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
                 ];
-                $host = "legodb.mysql.database.azure.com";
-                $db = "legoshop";
-                $user = "legoadmin";
-                $pass = "EHCSO&8DH28D";
+                $host = getenv('DB_HOST');
+                $db = getenv('DB_NAME');
+                $user = getenv('DB_USER');
+                $pass = getenv('DB_PASSWORD');
                 self::$conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
                 return self::$conn;
             }
