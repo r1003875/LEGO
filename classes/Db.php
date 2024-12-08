@@ -4,9 +4,9 @@
 
         public static function getConnection(){
             if(self::$conn == null){
-                $pathToSSL = __DIR__ . '/../CA.pem';
+                $pathToSSL = __DIR__ . '/../cacert.pem';
                 $options = [
-                    PDO::MYSQL_ATTR_SSL_CA => $pathToSSL,
+                    PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
                 ];
                 $host = "legodb.mysql.database.azure.com";
                 $db = "legoshop";
