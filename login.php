@@ -50,7 +50,7 @@
     <div class="bg_color1"></div>
     <div class="bg_color2"></div>
     <div class="lego_form">
-        <a href="index.php"><img src="images/LEGO_logo.png" alt="logo" class="logo"></a>
+        <a href="index.php"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png" alt="logo" class="logo"></a>
         <h2>Log in to access your LEGO® account</h2>
         <p>If you’re a new LEGO® fan, sign up to create an account.</p>
         <main>
