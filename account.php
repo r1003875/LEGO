@@ -54,15 +54,15 @@
         <form class="account_info" action="" method="post">
             <div class="left">
                 <h3>First name</h3>
-                <p><?php echo $profile[0]['first_name']; ?></p>
+                <p><?php echo htmlspecialchars($profile[0]['first_name']); ?></p>
             </div>
             <div class="right">
                 <h3>Last name</h3>
-                <p><?php echo $profile[0]['last_name']; ?></p>
+                <p><?php echo htmlspecialchars($profile[0]['last_name']); ?></p>
             </div>
             <div class="left">
                 <h3>Email</h3>
-                <p><?php echo $profile[0]['email']; ?></p>
+                <p><?php echo htmlspecialchars($profile[0]['email']); ?></p>
             </div>
             <div class="right">
                 <h3>Edit password</h3>
