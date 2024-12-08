@@ -129,15 +129,15 @@
                 </div>
                 <div>
                     <label for="street">Street</label>
-                    <input type="text" name="street" id="street" class="text_input" value="<?php if(isset($user_address)){echo $user_address['street'];} ?>">
+                    <input type="text" name="street" id="street" class="text_input" value="<?php if(isset($user_address)){echo htmlspecialchars($user_address['street']);} ?>">
                 </div>
                 <div>
                     <label for="housenumber">Housenumber</label>
-                    <input type="text" name="housenumber" id="housenumber" class="text_input" value="<?php if(isset($user_address)){echo $user_address['housenumber'];} ?>">
+                    <input type="text" name="housenumber" id="housenumber" class="text_input" value="<?php if(isset($user_address)){echo htmlspecialchars($user_address['housenumber']);} ?>">
                 </div>
                 <div>
                     <label for="city">City</label>
-                    <input type="text" name="city" id="city" class="text_input" value="<?php if(isset($user_address)){echo $user_address['city'];} ?>">
+                    <input type="text" name="city" id="city" class="text_input" value="<?php if(isset($user_address)){echo htmlspecialchars($user_address['city']);} ?>">
                 </div>
                 <div>
                     <label for="country">Country</label>
